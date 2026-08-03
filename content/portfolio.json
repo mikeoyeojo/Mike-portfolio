@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "title": "The Renergy Hub — Brand Identity System",
+      "category": "Branding",
+      "image": "assets/uploads/renergy-hub.jpg",
+      "description": "Full brand rollout for a solar energy company — logo mark, safety wear, banners, and outdoor billboard creative.",
+      "link": ""
+    },
+    {
+      "title": "ABJO Properties & Surveying — Brand Assets",
+      "category": "Real Estate",
+      "image": "assets/uploads/abjo-brand.jpg",
+      "description": "Field and corporate branding for a land surveying and property services company — safety vests, hard hats, and print collateral.",
+      "link": ""
+    },
+    {
+      "title": "Nexgen Energy — Social Carousel Series",
+      "category": "Social Media",
+      "image": "assets/uploads/nexgen-carousels.jpg",
+      "description": "Recurring carousel content built for consistency and reach across Instagram and LinkedIn, translating solar concepts into simple visual stories.",
+      "link": ""
+    }
+  ]
+}

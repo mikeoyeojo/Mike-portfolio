@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded images are stored in the repo, and how the site links to them
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "portfolio"
+    label: "Portfolio"
+    files:
+      - name: "portfolio"
+        label: "Portfolio Items"
+        file: "content/portfolio.json"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["Solar", "Real Estate", "Branding", "Social Media", "Motion", "E-commerce"]
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Project link (optional)", name: "link", widget: "string", required: false }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General"
+        file: "content/settings.json"
+        fields:
+          - { label: "Tagline (under your name)", name: "tagline", widget: "string" }
+          - { label: "About text", name: "about", widget: "text" }
+          - { label: "Contact email", name: "email", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
+          - { label: "Behance URL", name: "behance", widget: "string", required: false }
