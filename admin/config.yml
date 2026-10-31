@@ -2,7 +2,6 @@ backend:
   name: git-gateway
   branch: main
 
-# Where uploaded images are stored in the repo, and how the site links to them
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
@@ -11,10 +10,10 @@ collections:
     label: "Portfolio"
     files:
       - name: "portfolio"
-        label: "Portfolio Items"
+        label: "Projects & Case Studies"
         file: "content/portfolio.json"
         fields:
-          - label: "Projects"
+          - label: "Projects (drag to reorder — top of the list shows first on the site)"
             name: "items"
             widget: "list"
             summary: "{{title}}"
@@ -24,19 +23,194 @@ collections:
                 name: "category"
                 widget: "select"
                 options: ["Solar", "Real Estate", "Branding", "Social Media", "Motion", "E-commerce"]
-              - { label: "Image", name: "image", widget: "image" }
-              - { label: "Description", name: "description", widget: "text" }
-              - { label: "Project link (optional)", name: "link", widget: "string", required: false }
+              - label: "Card size in the grid"
+                name: "card_size"
+                widget: "select"
+                default: "normal"
+                options:
+                  - { label: "Normal", value: "normal" }
+                  - { label: "Wide (2x width)", value: "wide" }
+                  - { label: "Tall (2x height)", value: "tall" }
+                  - { label: "Large (big feature card)", value: "large" }
+              - { label: "Cover image (shown on the card)", name: "image", widget: "image" }
+              - { label: "Short description", name: "description", widget: "text" }
+              - { label: "External link (optional — shows as a button in the case study)", name: "link", widget: "string", required: false }
+              - { label: "Client", name: "client", widget: "string", required: false }
+              - { label: "Year", name: "year", widget: "string", required: false }
+              - { label: "Role", name: "role", widget: "string", required: false }
+              - { label: "Tools", name: "tools", widget: "string", required: false }
+              - { label: "Overview (intro at the top of the case study — blank line starts a new paragraph)", name: "overview", widget: "text", required: false }
+              - label: "Case study content (add blocks, then drag them into the order you want)"
+                name: "blocks"
+                widget: "list"
+                required: false
+                types:
+                  - label: "Full-width image"
+                    name: "image"
+                    widget: "object"
+                    fields:
+                      - { label: "Image", name: "image", widget: "image" }
+                      - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+                  - label: "Image grid (equal-size pictures)"
+                    name: "grid"
+                    widget: "object"
+                    fields:
+                      - { label: "Columns", name: "columns", widget: "select", options: ["2", "3"], default: "2" }
+                      - label: "Images (drag to reorder)"
+                        name: "images"
+                        widget: "list"
+                        field: { label: "Image", name: "image", widget: "image" }
+                  - label: "Gallery (masonry — mixed sizes, many images)"
+                    name: "gallery"
+                    widget: "object"
+                    fields:
+                      - { label: "Columns", name: "columns", widget: "select", options: ["2", "3", "4"], default: "3" }
+                      - label: "Images (drag to reorder)"
+                        name: "images"
+                        widget: "list"
+                        field: { label: "Image", name: "image", widget: "image" }
+                  - label: "Heading + text"
+                    name: "text"
+                    widget: "object"
+                    fields:
+                      - { label: "Heading", name: "heading", widget: "string", required: false }
+                      - { label: "Text (blank line starts a new paragraph)", name: "body", widget: "text" }
+                      - label: "Layout"
+                        name: "layout"
+                        widget: "select"
+                        options:
+                          - { label: "One column", value: "one-column" }
+                          - { label: "Two columns (heading left, text right)", value: "two-columns" }
+                        default: "one-column"
+                  - label: "Video (YouTube, Vimeo, or .mp4 link)"
+                    name: "video"
+                    widget: "object"
+                    fields:
+                      - { label: "Video link", name: "url", widget: "string" }
+                      - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+                  - label: "Video gallery (several videos side by side)"
+                    name: "videos"
+                    widget: "object"
+                    fields:
+                      - label: "Videos (drag to reorder)"
+                        name: "items"
+                        widget: "list"
+                        fields:
+                          - { label: "Video link", name: "url", widget: "string" }
+                          - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+                  - label: "Quote"
+                    name: "quote"
+                    widget: "object"
+                    fields:
+                      - { label: "Quote", name: "quote", widget: "text" }
+                      - { label: "Who said it", name: "author", widget: "string", required: false }
+                  - label: "Spacer (extra white space)"
+                    name: "spacer"
+                    widget: "object"
+                    fields:
+                      - { label: "Size", name: "size", widget: "select", options: ["small", "medium", "large"], default: "medium" }
 
   - name: "settings"
     label: "Site Settings"
     files:
       - name: "general"
-        label: "General"
+        label: "Page Text & Sections"
         file: "content/settings.json"
         fields:
-          - { label: "Tagline (under your name)", name: "tagline", widget: "string" }
-          - { label: "About text", name: "about", widget: "text" }
+          - { label: "Site name (browser tab + footer)", name: "site_name", widget: "string" }
+          - { label: "Full name", name: "full_name", widget: "string" }
+          - { label: "[Hero] Small label above the headline", name: "hero_label", widget: "string" }
+          - { label: "[Hero] Headline", name: "hero_headline", widget: "string" }
+          - { label: "[Hero] Short intro", name: "hero_intro", widget: "text" }
+          - { label: "[Hero] Badge number (e.g. 5+ Years)", name: "hero_badge_number", widget: "string" }
+          - { label: "[Hero] Badge text", name: "hero_badge_label", widget: "string" }
+          - { label: "[Hero] Button 1 text", name: "hero_cta_primary", widget: "string" }
+          - { label: "[Hero] Button 2 text", name: "hero_cta_secondary", widget: "string" }
+          - { label: "[Hero] Show my photo", name: "show_hero_photo", widget: "boolean", default: true }
+          - { label: "[Hero] My photo (transparent PNG/WebP cut-out works best)", name: "hero_photo", widget: "image", required: false }
+          - label: "[Stats bar] Numbers"
+            name: "stats"
+            widget: "list"
+            fields:
+              - { label: "Number", name: "number", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
+          - { label: "[Intro] Heading", name: "intro_heading", widget: "string" }
+          - { label: "[Intro] Text", name: "intro_text", widget: "text" }
+          - { label: "[Intro] Wide image", name: "intro_image_wide", widget: "image", required: false }
+          - { label: "[Intro] Tall image", name: "intro_image_tall", widget: "image", required: false }
+          - { label: "[Intro] Tag on the wide image", name: "intro_tag", widget: "string", required: false }
+          - { label: "[Work] Text under the heading", name: "work_sub", widget: "string", required: false }
+          - label: "[Scrolling banner] Words"
+            name: "ticker_words"
+            widget: "list"
+            required: false
+            field: { label: "Word", name: "word", widget: "string" }
+          - { label: "[Services] Intro", name: "services_intro", widget: "text", required: false }
+          - label: "[Services] List"
+            name: "services"
+            widget: "list"
+            required: false
+            summary: "{{title}}"
+            fields:
+              - { label: "Service name", name: "title", widget: "string" }
+              - { label: "Description (shows when opened)", name: "description", widget: "text", required: false }
+          - { label: "[Services] Image", name: "services_image", widget: "image", required: false }
+          - { label: "[Services] Note card text", name: "services_note", widget: "text", required: false }
+          - { label: "[Services] Yellow card title", name: "services_cta_title", widget: "string", required: false }
+          - { label: "[Services] Yellow card button", name: "services_cta_label", widget: "string", required: false }
+          - { label: "[Contact] Heading", name: "contact_heading", widget: "string" }
+          - { label: "[Contact] Text", name: "contact_lead", widget: "text" }
           - { label: "Contact email", name: "email", widget: "string" }
+          - { label: "WhatsApp link", name: "whatsapp", widget: "string", required: false }
           - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
           - { label: "Behance URL", name: "behance", widget: "string", required: false }
+          - { label: "[Footer] Tagline", name: "footer_tagline", widget: "string", required: false }
+          - { label: "[Footer] Small note", name: "footer_note", widget: "string", required: false }
+          - { label: "Menu label — Work", name: "nav_work_label", widget: "string" }
+          - { label: "Menu label — Services", name: "nav_services_label", widget: "string" }
+          - { label: "Menu label — About", name: "nav_about_label", widget: "string" }
+          - { label: "Menu label — Contact", name: "nav_contact_label", widget: "string" }
+
+      - name: "design"
+        label: "Design & Branding"
+        file: "content/design.json"
+        fields:
+          - { label: "Logo (leave blank to use text mark)", name: "logo", widget: "image", required: false }
+          - { label: "Favicon (small square image)", name: "favicon", widget: "image", required: false }
+          - label: "Font pairing"
+            name: "font_pairing"
+            widget: "select"
+            options:
+              - { label: "Modern (Space Grotesk + Inter)", value: "blueprint" }
+              - { label: "Editorial (Fraunces + Inter) — warm, magazine feel", value: "editorial" }
+              - { label: "Clean (Manrope) — minimal, all-sans", value: "studio" }
+          - { label: "Page background (dark)", name: "color_background", widget: "color" }
+          - { label: "Light panel (hero card)", name: "color_panel", widget: "color" }
+          - { label: "Dark text on light panels", name: "color_ink", widget: "color" }
+          - { label: "Brand colour (glows, accents)", name: "color_brand", widget: "color" }
+          - { label: "Accent colour (buttons, highlights, footer)", name: "color_accent", widget: "color" }
+
+      - name: "clients"
+        label: "Client Logos"
+        file: "content/clients.json"
+        fields:
+          - label: "Clients"
+            name: "clients"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "Client name", name: "name", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "image" }
+
+      - name: "testimonials"
+        label: "Testimonials"
+        file: "content/testimonials.json"
+        fields:
+          - label: "Testimonials"
+            name: "testimonials"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role / Company", name: "role", widget: "string", required: false }

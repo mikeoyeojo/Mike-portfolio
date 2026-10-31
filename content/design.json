@@ -1,0 +1,10 @@
+{
+  "logo": "/assets/uploads/logo.png",
+  "favicon": "/assets/uploads/favicon.png",
+  "font_pairing": "blueprint",
+  "color_background": "#1B0019",
+  "color_panel": "#F7F2F8",
+  "color_ink": "#2D002B",
+  "color_brand": "#5B0057",
+  "color_accent": "#FFCE00"
+}

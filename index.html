@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="page-title">Ojo Michael Oyetunde — Brand &amp; Motion Design</title>
 <meta name="description" content="Brand identity, motion design, and content strategy across solar, real estate, and e-commerce.">
+<meta name="theme-color" content="#1B0019">
 <link rel="icon" id="favicon-link" href="/assets/uploads/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,105 +14,161 @@
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+<div class="glow glow--a" aria-hidden="true"></div>
+<div class="glow glow--b" aria-hidden="true"></div>
 
-<div class="crosshair crosshair--tl" aria-hidden="true"></div>
-<div class="crosshair crosshair--tr" aria-hidden="true"></div>
-
-<header class="topbar">
-  <a class="topbar__mark" id="site-mark" href="#top" aria-label="Home">
-    <img src="/assets/uploads/logo.png" alt="M-Creative Design logo" height="38">
-  </a>
-  <nav class="topbar__nav">
-    <a href="#work" id="nav-work">Work</a>
-    <a href="#about" id="nav-about">About</a>
-    <a href="#contact" id="nav-contact">Contact</a>
-  </nav>
+<header class="nav" id="nav">
+  <div class="nav__pill">
+    <nav class="nav__side nav__side--left" aria-label="Main">
+      <a href="#work" data-nav="work">Work</a>
+      <a href="#services" data-nav="services">Services</a>
+    </nav>
+    <a class="nav__logo" id="site-mark" href="#top" aria-label="Home">
+      <img src="/assets/uploads/logo.png" alt="M-Creative Design logo" height="38">
+    </a>
+    <nav class="nav__side nav__side--right" aria-label="Secondary">
+      <a href="#about" data-nav="about">About</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+    </nav>
+    <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="nav__menu" id="nav-menu" hidden>
+    <a href="#work" data-nav="work">Work</a>
+    <a href="#services" data-nav="services">Services</a>
+    <a href="#about" data-nav="about">About</a>
+    <a href="#contact" data-nav="contact">Contact</a>
+  </div>
 </header>
 
-<main>
+<main id="top">
 
-  <section class="hero" id="top">
-    <div class="hero__frame">
-      <div class="hero__text">
-        <div class="hero__label mono" id="hero-label">SHEET 01 / 03 — PROFILE</div>
-        <h1 class="hero__title" id="hero-name">Ojo Michael<br>Oyetunde</h1>
-        <p class="hero__role">Brand &amp; Motion Design — <span id="hero-tagline">Solar · Real Estate · Branding</span></p>
-        <p class="hero__desc" id="hero-about">
-          I design brand identity, motion content, and social campaigns for companies
-          building Nigeria's infrastructure — energy, housing, and commerce.
-        </p>
-        <div class="hero__actions">
-          <a href="#work" class="btn btn--primary">See the work</a>
-          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__panel">
+      <svg class="hero__burst" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6V30M50 70V94M6 50H30M70 50H94M19 19L36 36M64 64L81 81M81 19L64 36M36 64L19 81" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+      <p class="hero__label mono" id="hero-label">BRAND &amp; MOTION DESIGNER · IBADAN, NG</p>
+      <h1 class="hero__title" id="hero-headline">Design that builds brands people trust</h1>
+      <div class="hero__row">
+        <div class="hero__left">
+          <p class="hero__hello"><span id="hero-name">Ojo Michael Oyetunde</span></p>
+          <p class="hero__intro" id="hero-intro">I design brand identity, motion content, and social campaigns for companies building Nigeria's infrastructure — energy, housing, and commerce.</p>
+        </div>
+        <figure class="hero__photo" id="hero-photo">
+          <div class="hero__disc" aria-hidden="true"></div>
+          <img id="hero-photo-img" src="/assets/uploads/hero-cutout.webp" alt="Portrait of Mike Ojo" width="900" height="1125">
+        </figure>
+        <div class="hero__right">
+          <span class="hero__stars" aria-hidden="true">★★★★★</span>
+          <strong class="hero__badge-num" id="hero-badge-num">5+ Years</strong>
+          <span class="hero__badge-label" id="hero-badge-label">of design experience</span>
         </div>
       </div>
-      <figure class="hero__photo" id="hero-photo" hidden>
-        <img id="hero-photo-img" alt="Portrait of Mike Ojo" width="900" height="1125">
-      </figure>
-    </div>
-    <div class="hero__coords mono" aria-hidden="true">
-      <span>IBADAN, NG</span>
-      <span>07°22'N 03°55'E</span>
+      <div class="hero__cta">
+        <a class="btn btn--accent" href="#contact" id="hero-cta-1">Start your project</a>
+        <a class="btn btn--dark" href="#work" id="hero-cta-2">See my work</a>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="work">
-    <div class="section__head">
-      <span class="mono section__num">02</span>
-      <h2 id="work-heading">Selected Work</h2>
-      <p class="section__sub">Click any project to open the full case study.</p>
+  <!-- STATS -->
+  <section class="stats" aria-label="Highlights">
+    <div class="stats__bar glass" id="stats-bar"></div>
+  </section>
+
+  <!-- INTRO / ABOUT -->
+  <section class="intro" id="about">
+    <div class="intro__head">
+      <h2 class="intro__title" id="intro-heading">Turning ideas into brands that last</h2>
+      <p class="intro__text" id="intro-text"></p>
     </div>
-    <div class="grid" id="portfolio-grid"><!-- populated by script.js --></div>
+    <div class="intro__images">
+      <figure class="intro__wide" id="intro-wide-wrap">
+        <img id="intro-wide" alt="" loading="lazy">
+        <figcaption class="tag mono" id="intro-tag">A CREATIVE BRAND STUDIO</figcaption>
+      </figure>
+      <figure class="intro__tall" id="intro-tall-wrap"><img id="intro-tall" alt="" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work" id="work">
+    <div class="work__head">
+      <h2 class="section-title">Selected <mark>Work</mark></h2>
+      <p class="work__sub" id="work-sub">Click any project to see the full case study, with every image and video.</p>
+    </div>
+    <div class="bento" id="portfolio-grid"></div>
     <p class="empty-note mono" id="empty-note" hidden>No projects yet — check back soon.</p>
   </section>
 
+  <!-- TICKER -->
+  <section class="ticker" aria-hidden="true">
+    <div class="ticker__track" id="ticker-track"></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services__card">
+      <div class="services__main">
+        <h2 class="section-title">My <mark>Services</mark></h2>
+        <p class="services__intro" id="services-intro"></p>
+        <div class="svc-list" id="svc-list"></div>
+      </div>
+      <figure class="services__img"><img id="services-img" alt="" loading="lazy"></figure>
+      <div class="services__side">
+        <div class="side-card glass"><p id="services-note"></p><a class="side-card__link" href="#work" id="services-note-link">See how I work <span aria-hidden="true">↗</span></a></div>
+        <div class="side-card side-card--accent"><p id="services-cta-title">Looking for a brand designer?</p><a class="side-card__link" href="#contact" id="services-cta-label">Start a project <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
   <section class="clients" id="clients-section" hidden>
     <p class="clients__label mono">TRUSTED BY</p>
     <div class="clients__row" id="clients-row"></div>
   </section>
 
-  <section class="section section--dark" id="about">
-    <div class="section__head">
-      <span class="mono section__num">03</span>
-      <h2 id="about-heading">About</h2>
-    </div>
-    <div class="about">
-      <p class="about__lead" id="about-lead"></p>
-      <div class="about__stats" id="about-stats"></div>
-    </div>
-  </section>
-
-  <section class="section" id="testimonials-section" hidden>
-    <div class="section__head">
-      <span class="mono section__num">04</span>
-      <h2>What people say</h2>
-    </div>
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-wrap" id="testimonials-section" hidden>
+    <h2 class="section-title">What people <mark>say</mark></h2>
     <div class="testimonials" id="testimonials-grid"></div>
   </section>
 
-  <section class="section" id="contact">
-    <div class="section__head">
-      <span class="mono section__num">05</span>
-      <h2 id="contact-heading">Contact</h2>
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact__text">
+      <h2 class="contact__title" id="contact-heading">Get in touch today!</h2>
+      <p class="contact__lead" id="contact-lead">Working on something in solar, real estate, or brand? Let's talk.</p>
+      <a class="contact__email glass" id="contact-email" href="mailto:mikeoyeojo@gmail.com"><span id="contact-email-text">mikeoyeojo@gmail.com</span><span class="contact__send" aria-hidden="true">↗</span></a>
     </div>
-    <div class="contact">
-      <p class="contact__lead">Working on something in solar, real estate, or brand? Let's talk.</p>
-      <a class="contact__email" id="contact-email" href="mailto:mikeoyeojo@gmail.com">mikeoyeojo@gmail.com</a>
-      <div class="contact__links">
-        <a href="https://wa.me/2348140339112" id="whatsapp-link" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="#" id="linkedin-link" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="#" id="behance-link" target="_blank" rel="noopener">Behance</a>
-      </div>
-    </div>
+    <figure class="contact__photo"><div class="contact__disc" aria-hidden="true"></div><img id="contact-photo" src="/assets/uploads/hero-cutout.webp" alt="" loading="lazy"></figure>
   </section>
 
 </main>
 
-<footer class="footer">
-  <div class="crosshair crosshair--bl" aria-hidden="true"></div>
-  <div class="crosshair crosshair--br" aria-hidden="true"></div>
-  <span class="mono"><span id="footer-name">M-CREATIVE DESIGN</span> © <span id="year"></span></span>
-  <span class="mono" id="footer-note">DRAWN BY M.O.</span>
+<footer class="footer" id="footer">
+  <div class="footer__card">
+    <div class="footer__brand">
+      <img class="footer__logo" id="footer-logo" src="/assets/uploads/logo.png" alt="" height="46">
+      <p id="footer-tagline">Brand, motion, and social design for solar, real estate, and commerce.</p>
+    </div>
+    <nav class="footer__col" aria-label="Footer">
+      <h3 class="mono">EXPLORE</h3>
+      <a href="#work" data-nav="work">Work</a>
+      <a href="#services" data-nav="services">Services</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+    </nav>
+    <div class="footer__col">
+      <h3 class="mono">CONNECT</h3>
+      <a href="https://wa.me/2348140339112" id="whatsapp-link" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#" id="linkedin-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#" id="behance-link" target="_blank" rel="noopener">Behance</a>
+      <a href="mailto:mikeoyeojo@gmail.com" id="footer-email">Email</a>
+    </div>
+    <div class="footer__bottom mono"><span><span id="footer-name">M-CREATIVE DESIGN</span> © <span id="year"></span></span><span id="footer-note">DRAWN BY M.O.</span></div>
+  </div>
 </footer>
 
 <!-- Case study popup -->
@@ -129,6 +186,21 @@
   <button class="cs__btn cs__nav cs__nav--next" type="button" id="cs-next" aria-label="Next project">
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
   </button>
+
+  <!-- Image viewer inside the popup -->
+  <div class="lb" id="lb" hidden role="dialog" aria-label="Image viewer">
+    <div class="lb__scrim" data-lb-close></div>
+    <figure class="lb__fig"><img id="lb-img" alt=""><figcaption class="mono" id="lb-count"></figcaption></figure>
+    <button class="cs__btn lb__close" type="button" data-lb-close aria-label="Close image">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <button class="cs__btn lb__nav lb__prev" type="button" id="lb-prev" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </button>
+    <button class="cs__btn lb__nav lb__next" type="button" id="lb-next" aria-label="Next image">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </button>
+  </div>
 </div>
 
 <script src="script.js"></script>

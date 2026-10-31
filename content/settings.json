@@ -1,7 +1,83 @@
 {
-  "tagline": "Solar · Real Estate · Branding",
-  "about": "I'm Mike — a brand and motion designer based in Ibadan, working across solar energy, real estate, and e-commerce. I design brand identity, motion content, and social campaigns for companies building Nigeria's infrastructure.",
+  "site_name": "M-Creative Design",
+  "full_name": "Ojo Michael Oyetunde",
+  "hero_label": "BRAND & MOTION DESIGNER · IBADAN, NG",
+  "hero_headline": "Design that builds brands people trust",
+  "hero_intro": "I design brand identity, motion content, and social campaigns for companies building Nigeria's infrastructure: energy, housing, and commerce.",
+  "hero_badge_number": "5+ Years",
+  "hero_badge_label": "of design experience",
+  "hero_cta_primary": "Start your project",
+  "hero_cta_secondary": "See my work",
+  "show_hero_photo": true,
+  "hero_photo": "/assets/uploads/hero-cutout.webp",
+  "stats": [
+    {
+      "number": "250+",
+      "label": "graphics & video assets delivered"
+    },
+    {
+      "number": "5+",
+      "label": "years in design"
+    },
+    {
+      "number": "3",
+      "label": "industries in active practice"
+    },
+    {
+      "number": "18mo",
+      "label": "growing brand presence at Nexgen Energy"
+    }
+  ],
+  "intro_heading": "Turning ideas into brands that last",
+  "intro_text": "I'm Mike, a brand and motion designer based in Ibadan, working across solar energy, real estate, and e-commerce. I turn a company's story into identity, content, and campaigns that look sharp and sell.",
+  "intro_tag": "A CREATIVE BRAND STUDIO",
+  "intro_image_wide": "/assets/uploads/renergy-billboard.jpg",
+  "intro_image_tall": "/assets/uploads/cusorcart-hero-ad.jpg",
+  "work_sub": "Click any project to see the full case study, with every image and video.",
+  "ticker_words": [
+    "Brand Identity",
+    "Motion Graphics",
+    "Social Media",
+    "Print Design",
+    "Web Design"
+  ],
+  "services_intro": "A focused set of creative services to help your brand stand out.",
+  "services": [
+    {
+      "title": "Brand Identity & Logo Design",
+      "description": "Logos, colour and type systems, and brand guidelines that carry from a business card to a billboard."
+    },
+    {
+      "title": "Social Media Design",
+      "description": "Flyers, carousels, and campaign visuals built for consistency and reach."
+    },
+    {
+      "title": "Motion Graphics & Video Editing",
+      "description": "Short-form video, animated graphics, and edits that keep people watching."
+    },
+    {
+      "title": "Print & Advertising Design",
+      "description": "Billboards, banners, flyers, and branded gear designed to be seen from a distance."
+    },
+    {
+      "title": "Web Design",
+      "description": "Clean, fast websites and landing pages that match your brand."
+    }
+  ],
+  "services_image": "/assets/uploads/nexgen-carousels.jpg",
+  "services_note": "Every project starts with a conversation about your goals, your audience, and where the brand will live.",
+  "services_cta_title": "Looking for a brand designer?",
+  "services_cta_label": "Start a project",
+  "contact_heading": "Get in touch today!",
+  "contact_lead": "Working on something in solar, real estate, or brand? Let's talk.",
   "email": "mikeoyeojo@gmail.com",
-  "linkedin": "https://www.linkedin.com/in/ojo-michael/",
-  "behance": "https://behance.net/michealojo1"
+  "whatsapp": "https://wa.me/2348140339112",
+  "linkedin": "https://linkedin.com/in/micheal-ojo1",
+  "behance": "https://behance.net/michealojo1",
+  "footer_tagline": "Brand, motion, and social design for solar, real estate, and commerce.",
+  "footer_note": "DRAWN BY M.O.",
+  "nav_work_label": "Work",
+  "nav_services_label": "Services",
+  "nav_about_label": "About",
+  "nav_contact_label": "Contact"
 }
