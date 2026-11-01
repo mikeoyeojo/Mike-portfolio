@@ -2,6 +2,11 @@ backend:
   name: git-gateway
   branch: main
 
+# OPTIONAL: Draft mode with a full-page preview link before publishing.
+# Remove the "#" from the next line to turn it on. Every save then becomes a draft with its own
+# private preview link (preview deploys are free on Netlify); only "Publish" goes live.
+# publish_mode: editorial_workflow
+
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
@@ -161,9 +166,10 @@ collections:
           - { label: "[Contact] Heading", name: "contact_heading", widget: "string" }
           - { label: "[Contact] Text", name: "contact_lead", widget: "text" }
           - { label: "Contact email", name: "email", widget: "string" }
-          - { label: "WhatsApp link", name: "whatsapp", widget: "string", required: false }
-          - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
-          - { label: "Behance URL", name: "behance", widget: "string", required: false }
+          - { label: "WhatsApp (your number like +2348140339112, or a wa.me link)", name: "whatsapp", widget: "string", required: false }
+          - { label: "Instagram (your @username or the full link)", name: "instagram", widget: "string", required: false }
+          - { label: "LinkedIn (full link to your profile)", name: "linkedin", widget: "string", required: false }
+          - { label: "Behance (full link to your profile)", name: "behance", widget: "string", required: false }
           - { label: "[Footer] Tagline", name: "footer_tagline", widget: "string", required: false }
           - { label: "[Footer] Small note", name: "footer_note", widget: "string", required: false }
           - { label: "Menu label — Work", name: "nav_work_label", widget: "string" }

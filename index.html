@@ -11,9 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js');</script>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+<div class="progress" id="progress" aria-hidden="true"></div>
 <div class="glow glow--a" aria-hidden="true"></div>
 <div class="glow glow--b" aria-hidden="true"></div>
 
@@ -66,7 +68,7 @@
         </div>
       </div>
       <div class="hero__cta">
-        <a class="btn btn--accent" href="#contact" id="hero-cta-1">Start your project</a>
+        <a class="btn btn--accent btn--pulse" href="#contact" id="hero-cta-1">Start your project</a>
         <a class="btn btn--dark" href="#work" id="hero-cta-2">See my work</a>
       </div>
     </div>
@@ -141,6 +143,7 @@
       <h2 class="contact__title" id="contact-heading">Get in touch today!</h2>
       <p class="contact__lead" id="contact-lead">Working on something in solar, real estate, or brand? Let's talk.</p>
       <a class="contact__email glass" id="contact-email" href="mailto:mikeoyeojo@gmail.com"><span id="contact-email-text">mikeoyeojo@gmail.com</span><span class="contact__send" aria-hidden="true">↗</span></a>
+      <div class="contact__socials" id="contact-socials"></div>
     </div>
     <figure class="contact__photo"><div class="contact__disc" aria-hidden="true"></div><img id="contact-photo" src="/assets/uploads/hero-cutout.webp" alt="" loading="lazy"></figure>
   </section>
@@ -162,9 +165,7 @@
     </nav>
     <div class="footer__col">
       <h3 class="mono">CONNECT</h3>
-      <a href="https://wa.me/2348140339112" id="whatsapp-link" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="#" id="linkedin-link" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="#" id="behance-link" target="_blank" rel="noopener">Behance</a>
+      <div class="footer__socials" id="footer-socials"></div>
       <a href="mailto:mikeoyeojo@gmail.com" id="footer-email">Email</a>
     </div>
     <div class="footer__bottom mono"><span><span id="footer-name">M-CREATIVE DESIGN</span> © <span id="year"></span></span><span id="footer-note">DRAWN BY M.O.</span></div>
@@ -203,6 +204,7 @@
   </div>
 </div>
 
+<script src="render.js"></script>
 <script src="script.js"></script>
 <script>
   // If an invite/recovery link lands on the homepage, send it to /admin so the password screen shows.

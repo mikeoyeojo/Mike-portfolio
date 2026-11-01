@@ -1,0 +1,23 @@
+/* Extra rules that only apply inside the admin preview pane */
+body{ background: var(--bg); min-height: 100vh; }
+.pv{ position: relative; padding: 18px 14px 40px; color: var(--text); font-family: var(--font-body); background: var(--bg); min-height: 100vh; overflow-x: hidden; }
+.pv .reveal{ opacity: 1 !important; transform: none !important; }
+.pv-label{ margin: 22px 0 12px; font-size: .72rem; letter-spacing: .08em; color: var(--accent); }
+.pv-hero{ position: relative; }
+.pv .nav{ position: absolute; top: 14px; }
+.pv .nav__toggle{ display: none; }
+.pv .ticker__track{ animation: none; }
+.pv a{ cursor: default; }
+.pv .hero{ padding-top: 0; }
+.pv .bento{ margin-bottom: 8px; }
+
+/* each case study opens in a card that looks like the real popup */
+.pv-cs{ margin: 0 0 14px; border: 1px solid var(--glass-line); border-radius: 18px; background: rgba(255,255,255,.05); overflow: hidden; }
+.pv-cs > summary{ cursor: pointer; padding: 16px 20px; font-family: var(--font-display); font-weight: 600; color: #fff; list-style: none; }
+.pv-cs > summary::-webkit-details-marker{ display: none; }
+.pv-cs > summary::before{ content: "▸  "; color: var(--accent); }
+.pv-cs[open] > summary::before{ content: "▾  "; }
+.pv-panel{ position: relative !important; width: auto !important; height: auto !important; overflow: visible !important; animation: none !important; border-radius: 0 !important; border: 0 !important; box-shadow: none !important; }
+.pv-panel .cs__scroll{ height: auto !important; overflow: visible !important; }
+.pv-panel .csx-head{ padding-top: 28px; }
+.pv-panel .cb img{ cursor: default; }

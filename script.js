@@ -4,28 +4,6 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ---------- helpers ---------- */
-const esc = (v) => String(v == null ? '' : v)
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
-// Only allow http(s) links and site-relative paths (blocks javascript: etc.)
-function safeUrl(u){
-  u = String(u || '').trim();
-  if(/^https?:\/\//i.test(u) || /^\/(?!\/)/.test(u) || /^assets\//i.test(u)) return u;
-  return '';
-}
-
-// Blank line = new paragraph, single line break = <br>
-function paragraphs(text){
-  return String(text || '').split(/\n\s*\n/).map(s => s.trim()).filter(Boolean)
-    .map(p => '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>').join('');
-}
-
-function slugify(s){
-  return String(s || 'project').toLowerCase().replace(/&/g, 'and')
-    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'project';
-}
-
 async function loadJSON(path){
   try{
     const res = await fetch(path + '?t=' + Date.now()); // cache-bust so edits show immediately
@@ -42,14 +20,8 @@ function setText(id, value){
   const el = $(id);
   if(el && value !== undefined && value !== null && value !== '') el.textContent = value;
 }
-const plural = (n, word) => n + ' ' + word + (n === 1 ? '' : 's');
 
 /* ---------- colour helpers (soft tints are derived from the colours chosen in the CMS) ---------- */
-const isHex = (c) => /^#[0-9a-f]{6}$/i.test(c || '');
-const toRGB = (h) => [1,3,5].map(i => parseInt(h.slice(i, i + 2), 16));
-const toHex = (a) => '#' + a.map(n => Math.round(n).toString(16).padStart(2, '0')).join('');
-const mix = (a, b, t) => { const A = toRGB(a), B = toRGB(b); return toHex(A.map((v, i) => v + (B[i] - v) * t)); };
-
 /* ---------- Design: colours, logo, fonts ---------- */
 const FONT_URLS = {
   editorial: 'https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&display=swap',
@@ -58,21 +30,10 @@ const FONT_URLS = {
 
 function applyDesign(design){
   if(!design) return;
-  const root = document.documentElement.style;
-  const get = (k, d) => isHex(design[k]) ? design[k] : d;
-  const bg = get('color_background', '#1B0019'), panel = get('color_panel', '#F7F2F8');
-  const ink = get('color_ink', '#2D002B'), brand = get('color_brand', '#5B0057'), accent = get('color_accent', '#FFCE00');
-
-  root.setProperty('--bg', bg);
-  root.setProperty('--panel', panel);
-  root.setProperty('--ink', ink);
-  root.setProperty('--brand', brand);
-  root.setProperty('--accent', accent);
-  root.setProperty('--surface', mix(bg, '#ffffff', 0.07));
-  root.setProperty('--surface-2', mix(bg, '#ffffff', 0.13));
-  root.setProperty('--disc', mix(panel, brand, 0.12));
+  const vars = themeVars(design);
+  Object.keys(vars).forEach(k => document.documentElement.style.setProperty(k, vars[k]));
   const theme = document.querySelector('meta[name="theme-color"]');
-  if(theme) theme.setAttribute('content', bg);
+  if(theme) theme.setAttribute('content', vars['--bg']);
 
   if(design.favicon && safeUrl(design.favicon)) $('favicon-link').href = design.favicon;
 
@@ -135,7 +96,7 @@ function applySettings(s){
   // Stats
   const stats = (s.stats || []).filter(x => x && (x.number || x.label));
   $('stats-bar').innerHTML = stats.map(x => `
-    <div class="stat"><span class="stat__num">${esc(x.number)}</span><span class="stat__label">${esc(x.label)}</span></div>`).join('');
+    <div class="stat"><span class="stat__num" data-count>${esc(x.number)}</span><span class="stat__label">${esc(x.label)}</span></div>`).join('');
   document.querySelector('.stats').hidden = !stats.length;
 
   // Intro
@@ -188,10 +149,9 @@ function applySettings(s){
     $('contact-email').href = 'mailto:' + s.email;
     $('footer-email').href = 'mailto:' + s.email;
   }
-  const setLink = (id, url) => { const el = $(id); if(url) el.href = url; else el.hidden = true; };
-  setLink('whatsapp-link', safeUrl(s.whatsapp));
-  setLink('linkedin-link', safeUrl(s.linkedin));
-  setLink('behance-link', safeUrl(s.behance));
+  // Social icons (WhatsApp, Instagram, LinkedIn, Behance): any link left blank in the admin is simply not shown
+  $('contact-socials').innerHTML = socialHTML(s, 'round');
+  $('footer-socials').innerHTML = socialHTML(s, 'list');
 }
 
 $('hero-photo-img').addEventListener('error', () => {
@@ -244,171 +204,139 @@ function applyTestimonials(data){
 let projects = [];
 
 function prepareProjects(data){
-  const seen = {};
-  projects = ((data && data.items) || []).map(p => {
-    let slug = slugify(p.title);
-    seen[slug] = (seen[slug] || 0) + 1;
-    if(seen[slug] > 1) slug += '-' + seen[slug];
-    return Object.assign({}, p, { slug });
-  });
-}
-
-// How many images / videos a case study holds (shown on the card and in the popup)
-function mediaCount(p){
-  let images = 0, videos = 0;
-  (p.blocks || []).forEach(b => {
-    if(!b) return;
-    if(b.type === 'image' && safeUrl(b.image)) images++;
-    else if((b.type === 'grid' || b.type === 'gallery')) images += (b.images || []).filter(safeUrl).length;
-    else if(b.type === 'video' && videoHTML(b.url)) videos++;
-    else if(b.type === 'videos') videos += (b.items || []).filter(v => v && videoHTML(v.url)).length;
-  });
-  if(!(p.blocks || []).length && safeUrl(p.image)) images = 1;
-  return { images, videos };
-}
-
-function countText(p){
-  const c = mediaCount(p), parts = [];
-  if(c.images) parts.push(plural(c.images, 'image'));
-  if(c.videos) parts.push(plural(c.videos, 'video'));
-  return parts.join(' · ');
-}
-
-function cardHTML(p){
-  const img = safeUrl(p.image);
-  const size = ['wide', 'tall', 'large'].includes(p.card_size) ? p.card_size : 'normal';
-  const count = countText(p);
-  return `
-    <a class="pcard pcard--${size} reveal" href="#project-${esc(p.slug)}" aria-label="Open case study: ${esc(p.title)}">
-      ${img ? `<img class="pcard__img" src="${esc(img)}" alt="" loading="lazy">` : ''}
-      <div class="pcard__glass">
-        <div>
-          ${p.category ? `<span class="pcard__cat mono">${esc(p.category.toUpperCase())}</span>` : ''}
-          <h3 class="pcard__title">${esc(p.title || 'Untitled project')}</h3>
-          ${count ? `<span class="pcard__count">${esc(count)}</span>` : ''}
-        </div>
-        <span class="pcard__go" aria-hidden="true">↗</span>
-      </div>
-    </a>`;
+  projects = withSlugs(data && data.items);
 }
 
 function renderPortfolio(){
   const grid = $('portfolio-grid'), emptyNote = $('empty-note');
   if(!projects.length){ emptyNote.hidden = false; return; }
-  grid.innerHTML = projects.map(cardHTML).join('');
+  grid.innerHTML = projects.map((p, i) => cardHTML(p, i)).join('');
   observeReveals();
 }
 
-function observeReveals(){
-  const els = document.querySelectorAll('.reveal:not(.is-observed)');
+const REDUCED = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+// Numbers in the stats bar count up when they scroll into view ("250+" -> 0 ... 250+)
+function countUp(scope){
+  scope.querySelectorAll('.stat__num[data-count]:not([data-counted])').forEach(el => {
+    el.setAttribute('data-counted', '1');
+    const m = el.textContent.trim().match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+    if(!m || REDUCED() || !window.requestAnimationFrame) return;
+    const [, pre, num, post] = m, end = parseFloat(num), dec = (num.split('.')[1] || '').length, dur = 1500, t0 = performance.now();
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+      el.textContent = pre + (end * e).toFixed(dec) + post;
+      if(k < 1) requestAnimationFrame(tick); else el.textContent = pre + num + post;
+    };
+    el.textContent = pre + (0).toFixed(dec) + post;
+    requestAnimationFrame(tick);
+  });
+}
+
+// Fades things in as they scroll into view. "root" is the scrolling box (the popup) or null for the page.
+function observeReveals(scope, root){
+  scope = scope || document;
+  const els = scope.querySelectorAll('.reveal:not(.is-observed), .split:not(.is-observed)');
   els.forEach(el => el.classList.add('is-observed'));
-  if(!('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('is-visible')); return; }
+  const show = (el) => { el.classList.add('is-visible'); countUp(el); };
+  if(!('IntersectionObserver' in window)){ els.forEach(show); return; }
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      if(entry.isIntersecting){ show(entry.target); io.unobserve(entry.target); }
     });
-  }, { threshold: 0.12 });
+  }, { root: root || null, threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   els.forEach(el => io.observe(el));
 }
 
+// Headline words rise into place one after the other
+function splitWords(el, baseMs){
+  if(!el || el.classList.contains('split')) return;
+  const text = el.textContent.trim(); if(!text) return;
+  el.setAttribute('aria-label', text);
+  el.innerHTML = text.split(/\s+/).map((w, i) => `<span class="w" aria-hidden="true"><span style="--i:${i}">${esc(w)}</span></span>`).join(' ');
+  el.classList.add('split');
+  el.style.setProperty('--base', (baseMs || 0) + 'ms');
+}
+
+// Which page elements fade/slide in, and from where
+function setupReveals(){
+  const list = [
+    ['.work__head .section-title'], ['.work__sub', 'up', 120],
+    ['.intro__text', 'up', 150], ['#intro-wide-wrap', 'left'], ['#intro-tall-wrap', 'right', 160],
+    ['.stats__bar', 'zoom'],
+    ['.services .section-title'], ['.services__intro', 'up', 100], ['.svc', 'up', 90], ['.services__img', 'zoom', 120], ['.side-card', 'up', 160],
+    ['.clients__label'], ['.clients__row img', 'up', 70], ['.testimonials-wrap .section-title'],
+    ['.contact__lead', 'up', 120], ['.contact__email', 'up', 240], ['.contact__socials .social', 'zoom', 80], ['.contact__photo', 'right', 150],
+    ['.footer__card', 'up']
+  ];
+  list.forEach(([sel, dir, step]) => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      if(el.classList.contains('reveal')) return;
+      el.classList.add('reveal');
+      if(dir && dir !== 'up') el.setAttribute('data-reveal', dir);
+      if(step) el.style.setProperty('--d', (i * step) + (sel === '.contact__socials .social' ? 360 : 0));
+    });
+  });
+}
+
+// One cheap scroll handler: progress bar, nav state, active link, gentle parallax
+function setupScrollEffects(){
+  const nav = $('nav'), bar = $('progress');
+  const sections = ['work', 'services', 'about', 'contact'].map(k => [k, $(k)]).filter(x => x[1]);
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const y = window.scrollY || 0, max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    bar.style.setProperty('--p', Math.min(1, y / max).toFixed(4));
+    nav.classList.toggle('is-scrolled', y > 24);
+    if(!REDUCED()) document.documentElement.style.setProperty('--sy', Math.min(y, 1600).toFixed(0));
+    let active = '';
+    sections.forEach(([k, el]) => { if(el.getBoundingClientRect().top <= window.innerHeight * 0.4) active = k; });
+    document.querySelectorAll('.nav [data-nav]').forEach(a => a.classList.toggle('is-active', a.dataset.nav === active));
+  };
+  window.addEventListener('scroll', () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+
+// Project cards tilt toward the mouse and carry a moving highlight
+function setupTilt(){
+  const grid = $('portfolio-grid');
+  grid.addEventListener('pointermove', (e) => {
+    if(e.pointerType !== 'mouse' || REDUCED()) return;
+    const card = e.target.closest('.pcard'); if(!card) return;
+    const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    card.style.setProperty('--ry', ((x - 0.5) * 7).toFixed(2) + 'deg');
+    card.style.setProperty('--rx', ((0.5 - y) * 5).toFixed(2) + 'deg');
+    card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+    card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+  });
+  grid.addEventListener('pointerout', (e) => {
+    const card = e.target.closest('.pcard');
+    if(card && !card.contains(e.relatedTarget)){ card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); }
+  });
+}
+
 /* ---------- Case study blocks ---------- */
-function videoHTML(url){
-  url = safeUrl(url);
-  if(!url) return '';
-  let m;
-  if((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/i))){
-    return `<div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m[1])}" title="Video" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
-  }
-  if((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i))){
-    return `<div class="ratio"><iframe src="https://player.vimeo.com/video/${esc(m[1])}" title="Video" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
-  }
-  if(/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)){
-    return `<div class="ratio"><video src="${esc(url)}" controls playsinline preload="metadata"></video></div>`;
-  }
-  return '';
-}
-
-function blockHTML(b){
-  switch(b && b.type){
-    case 'image': {
-      const src = safeUrl(b.image); if(!src) return '';
-      return `<figure class="cb cb--image"><img src="${esc(src)}" alt="${esc(b.caption || '')}" loading="lazy">${b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''}</figure>`;
-    }
-    case 'grid': {
-      const imgs = (b.images || []).map(safeUrl).filter(Boolean); if(!imgs.length) return '';
-      const cols = b.columns === '3' ? 3 : 2;
-      return `<div class="cb cb--grid cols-${cols}">${imgs.map(s => `<img src="${esc(s)}" alt="" loading="lazy">`).join('')}</div>`;
-    }
-    case 'gallery': {
-      const imgs = (b.images || []).map(safeUrl).filter(Boolean); if(!imgs.length) return '';
-      const cols = ['2', '3', '4'].includes(String(b.columns)) ? b.columns : '3';
-      return `<div class="cb cb--gallery cols-${cols}">${imgs.map(s => `<img src="${esc(s)}" alt="" loading="lazy">`).join('')}</div>`;
-    }
-    case 'text': {
-      const two = b.layout === 'two-columns';
-      return `<div class="cb cb--text ${two ? 'two-columns' : ''}">${b.heading ? `<h3>${esc(b.heading)}</h3>` : ''}<div>${paragraphs(b.body)}</div></div>`;
-    }
-    case 'video': {
-      const v = videoHTML(b.url); if(!v) return '';
-      return `<figure class="cb cb--video">${v}${b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''}</figure>`;
-    }
-    case 'videos': {
-      const items = (b.items || []).map(v => ({ html: videoHTML(v && v.url), caption: v && v.caption })).filter(v => v.html);
-      if(!items.length) return '';
-      return `<div class="cb cb--videos-grid ${items.length === 1 ? 'single' : ''}">${items.map(v => `<figure>${v.html}${v.caption ? `<figcaption>${esc(v.caption)}</figcaption>` : ''}</figure>`).join('')}</div>`;
-    }
-    case 'quote':
-      return `<figure class="cb cb--quote"><blockquote>&ldquo;${esc(b.quote)}&rdquo;</blockquote>${b.author ? `<cite>${esc(b.author)}</cite>` : ''}</figure>`;
-    case 'spacer':
-      return `<div class="cb cb--spacer ${['small','medium','large'].includes(b.size) ? b.size : 'medium'}" aria-hidden="true"></div>`;
-    default: return '';
-  }
-}
-
-function caseStudyHTML(p, index){
-  const meta = [['Client', p.client], ['Year', p.year], ['Role', p.role], ['Tools', p.tools]].filter(m => m[1]);
-  const link = safeUrl(p.link);
-  const others = projects.filter((_, i) => i !== index).slice(0, 6);
-  const c = mediaCount(p);
-  // If no case-study blocks were added, still show the cover image so the popup is never empty.
-  const blocks = (p.blocks && p.blocks.length) ? p.blocks.map(blockHTML).join('')
-    : (safeUrl(p.image) ? blockHTML({ type: 'image', image: p.image }) : '');
-  return `
-    <header class="csx-head">
-      ${p.category ? `<span class="csx-cat mono">${esc(p.category.toUpperCase())}</span>` : ''}
-      <h2 class="csx-title" id="cs-title">${esc(p.title)}</h2>
-      ${meta.length ? `<dl class="csx-meta">${meta.map(m => `<div><dt>${m[0]}</dt><dd>${esc(m[1])}</dd></div>`).join('')}</dl>` : ''}
-      <div class="csx-overview">${paragraphs(p.overview || p.description)}</div>
-      ${(c.images || c.videos) ? `<div class="csx-stats">${c.images ? `<span>${plural(c.images, 'image')}</span>` : ''}${c.videos ? `<span>${plural(c.videos, 'video')}</span>` : ''}</div>` : ''}
-      ${link ? `<a class="btn btn--accent csx-visit" href="${esc(link)}" target="_blank" rel="noopener">Visit project ↗</a>` : ''}
-    </header>
-    <div class="csx-blocks">${blocks}</div>
-    <footer class="csx-foot">
-      ${others.length ? `<h4>More projects</h4><div class="csx-more">${others.map(o => `
-        <a href="#project-${esc(o.slug)}">${safeUrl(o.image) ? `<img src="${esc(safeUrl(o.image))}" alt="" loading="lazy">` : ''}${esc(o.title)}</a>`).join('')}</div>` : ''}
-      <div class="csx-cta">
-        <p>Have a project like this in mind?</p>
-        <a class="btn btn--dark" href="#contact" data-go-contact>Let's talk</a>
-      </div>
-    </footer>`;
-}
-
 /* ---------- Popup behaviour ---------- */
 const cs = $('cs'), csPanel = $('cs-panel'), csScroll = $('cs-scroll');
 let currentIndex = -1, lastFocus = null;
 const INERT_SELECTOR = 'header.nav, main, footer.footer';
 
-const isOpen = () => !cs.hidden;
+let closeTimer = null;
+const isOpen = () => !cs.hidden && !cs.classList.contains('is-closing');
 const hashSlug = () => { const m = location.hash.match(/^#project-(.+)$/); return m ? decodeURIComponent(m[1]) : null; };
 
 function showProject(slug){
   const index = projects.findIndex(p => p.slug === slug);
   if(index < 0){ hideModal(); return; }
+  if(closeTimer){ clearTimeout(closeTimer); closeTimer = null; cs.classList.remove('is-closing'); }  // re-opened while still closing
   const wasOpen = isOpen();
   closeLb();
   currentIndex = index;
-  csScroll.innerHTML = caseStudyHTML(projects[index], index);
+  csScroll.innerHTML = caseStudyHTML(projects[index], index, projects);
   csScroll.scrollTop = 0;
+  csScroll.classList.remove('swap'); void csScroll.offsetWidth; csScroll.classList.add('swap');
   $('cs-prev').hidden = $('cs-next').hidden = projects.length < 2;
   document.title = projects[index].title + ' — ' + ($('page-title').dataset.base || document.title);
   if(!wasOpen){
@@ -420,18 +348,21 @@ function showProject(slug){
     cs.hidden = false;
   }
   csPanel.focus({ preventScroll: true });
+  observeReveals(csScroll, csScroll);   // images and text fade in as you scroll through the case study
 }
 
 function hideModal(){
   if(!isOpen()) return;
   closeLb();
-  cs.hidden = true;
   currentIndex = -1;
   document.body.classList.remove('cs-open');
   document.body.style.paddingRight = '';
   document.querySelectorAll(INERT_SELECTOR).forEach(el => el.inert = false);
   document.title = $('page-title').dataset.base || document.title;
   if(lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  if(REDUCED()){ cs.hidden = true; return; }
+  cs.classList.add('is-closing');                       // smooth fade-out, then hide
+  closeTimer = setTimeout(() => { cs.hidden = true; cs.classList.remove('is-closing'); closeTimer = null; }, 240);
 }
 
 function closeModal(){
@@ -459,6 +390,7 @@ const lbOpen = () => !lb.hidden;
 function showLb(i){
   lbIndex = (i + lbImgs.length) % lbImgs.length;
   const el = lbImgs[lbIndex];
+  const lbEl = $('lb-img'); lbEl.classList.remove('swap'); void lbEl.offsetWidth; lbEl.classList.add('swap');
   $('lb-img').src = el.currentSrc || el.src;
   $('lb-img').alt = el.alt || '';
   const cap = el.closest('figure') && el.closest('figure').querySelector('figcaption');
@@ -531,5 +463,12 @@ document.addEventListener('keydown', (e) => {
   renderPortfolio();
   applyClients(clients);
   applyTestimonials(testimonials);
+  splitWords($('hero-headline'), 380);
+  splitWords($('intro-heading'), 0);
+  splitWords($('contact-heading'), 0);
+  setupReveals();
+  observeReveals();
+  setupScrollEffects();
+  setupTilt();
   syncFromHash(); // open a case study straight from a shared link
 })();
