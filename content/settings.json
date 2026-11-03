@@ -13,19 +13,23 @@
   "stats": [
     {
       "number": "250+",
-      "label": "graphics & video assets delivered"
+      "label": "graphics & video assets delivered",
+      "short_label": "Assets"
     },
     {
       "number": "5+",
-      "label": "years in design"
+      "label": "years in design",
+      "short_label": "Years"
     },
     {
       "number": "3",
-      "label": "industries in active practice"
+      "label": "industries in active practice",
+      "short_label": "Industries"
     },
     {
       "number": "18mo",
-      "label": "growing brand presence at Nexgen Energy"
+      "label": "growing brand presence at Nexgen Energy",
+      "short_label": "At Nexgen"
     }
   ],
   "intro_heading": "Turning ideas into brands that last",

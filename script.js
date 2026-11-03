@@ -96,7 +96,7 @@ function applySettings(s){
   // Stats
   const stats = (s.stats || []).filter(x => x && (x.number || x.label));
   $('stats-bar').innerHTML = stats.map(x => `
-    <div class="stat"><span class="stat__num" data-count>${esc(x.number)}</span><span class="stat__label">${esc(x.label)}</span></div>`).join('');
+    <div class="stat"><span class="stat__num" data-count>${esc(x.number)}</span><span class="stat__label"><span class="lbl-full">${esc(x.label)}</span><span class="lbl-short">${esc(x.short_label || x.label)}</span></span></div>`).join('');
   document.querySelector('.stats').hidden = !stats.length;
 
   // Intro
@@ -279,23 +279,37 @@ function setupReveals(){
   });
 }
 
-// One cheap scroll handler: progress bar, nav state, active link, gentle parallax
+// One light scroll handler: progress bar, menu state and (desktop only) a gentle photo drift.
+// It only touches the few elements it needs, so scrolling stays smooth on phones.
 function setupScrollEffects(){
   const nav = $('nav'), bar = $('progress');
-  const sections = ['work', 'services', 'about', 'contact'].map(k => [k, $(k)]).filter(x => x[1]);
-  let ticking = false;
+  const photo = document.querySelector('.hero__photo img');
+  const drift = !!(window.matchMedia && window.matchMedia('(min-width: 861px) and (pointer: fine)').matches) && !REDUCED();
+  let ticking = false, scrolled = false, active = null;
+  const setActive = (k) => {
+    if(k === active) return;
+    active = k;
+    document.querySelectorAll('.nav [data-nav]').forEach(a => a.classList.toggle('is-active', a.dataset.nav === k));
+  };
   const update = () => {
     ticking = false;
-    const y = window.scrollY || 0, max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    bar.style.setProperty('--p', Math.min(1, y / max).toFixed(4));
-    nav.classList.toggle('is-scrolled', y > 24);
-    if(!REDUCED()) document.documentElement.style.setProperty('--sy', Math.min(y, 1600).toFixed(0));
-    let active = '';
-    sections.forEach(([k, el]) => { if(el.getBoundingClientRect().top <= window.innerHeight * 0.4) active = k; });
-    document.querySelectorAll('.nav [data-nav]').forEach(a => a.classList.toggle('is-active', a.dataset.nav === active));
+    const y = window.scrollY || 0;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    bar.style.transform = 'scaleX(' + Math.min(1, y / max).toFixed(4) + ')';
+    const s = y > 24;
+    if(s !== scrolled){ scrolled = s; nav.classList.toggle('is-scrolled', s); }
+    if(y < 300) setActive('');
+    if(drift && y < 1000 && photo) photo.style.translate = '0 ' + (-y * 0.04).toFixed(1) + 'px';
   };
   window.addEventListener('scroll', () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive: true });
   window.addEventListener('resize', update);
+  // Highlight the menu link of the section you are in (no per-frame measuring)
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting && (window.scrollY || 0) >= 300) setActive(en.target.id); });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    ['work', 'services', 'about', 'contact'].forEach(k => { const el = $(k); if(el) io.observe(el); });
+  }
   update();
 }
 

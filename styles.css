@@ -30,7 +30,7 @@ html{ scroll-behavior: smooth; }
 body{
   margin:0; background: var(--bg); color: var(--text);
   font-family: var(--font-body); line-height: 1.55;
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
 }
 body.cs-open{ overflow: hidden; }
 img{ max-width: 100%; }
@@ -46,9 +46,9 @@ a:focus-visible, button:focus-visible{ outline: 3px solid var(--accent); outline
 }
 
 /* Soft colour glows behind everything (what the glass cards blur against) */
-.glow{ position: fixed; z-index: 0; border-radius: 50%; filter: blur(120px); pointer-events: none; }
-.glow--a{ width: 560px; height: 560px; top: -160px; left: -140px; background: var(--brand); opacity: .7; }
-.glow--b{ width: 520px; height: 520px; bottom: -200px; right: -140px; background: var(--brand); opacity: .55; }
+.glow{ position: fixed; z-index: 0; border-radius: 50%; pointer-events: none; will-change: transform; }
+.glow--a{ width: 820px; height: 820px; top: -330px; left: -300px; background: radial-gradient(closest-side, var(--brand), transparent); opacity: .75; }
+.glow--b{ width: 780px; height: 780px; bottom: -330px; right: -300px; background: radial-gradient(closest-side, var(--brand), transparent); opacity: .6; }
 
 .glass{
   background: var(--glass); border: 1px solid var(--glass-line);
@@ -139,7 +139,8 @@ mark{ background: var(--accent); color: var(--ink); padding: 0 .28em; border-rad
 .hero__right{ display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 2px; }
 .hero__stars{ color: var(--accent); letter-spacing: 3px; font-size: 1.1rem; text-shadow: 0 0 1px rgba(45,0,43,.5); }
 .hero__badge-num{ font-family: var(--font-display); font-size: 1.7rem; line-height: 1.1; color: var(--ink); }
-.hero__badge-label{ font-size: .85rem; color: #5A4A5A; max-width: 14ch; }
+.hero__badge-label{ font-size: .85rem; color: #5A4A5A; white-space: nowrap; }
+.hero__badge-num{ white-space: nowrap; }
 .hero__photo{ position: relative; margin: 0; display: flex; justify-content: center; align-items: flex-end; }
 .hero__photo[hidden]{ display: none; }
 .hero__disc{
@@ -218,7 +219,7 @@ mark{ background: var(--accent); color: var(--ink); padding: 0 .28em; border-rad
 
 /* Ticker */
 .ticker{ margin-top: 110px; overflow: hidden; padding: 30px 0; border-block: 1px solid rgba(255,255,255,.12); }
-.ticker__track{ display: flex; width: max-content; animation: tick 34s linear infinite; }
+.ticker__track{ display: flex; width: max-content; animation: tick 34s linear infinite; will-change: transform; }
 .ticker__item{ display: flex; align-items: center; gap: clamp(20px, 4vw, 48px); padding-right: clamp(20px, 4vw, 48px); font-family: var(--font-display); font-weight: 700; font-size: clamp(2.2rem, 7vw, 5.4rem); letter-spacing: -0.02em; white-space: nowrap; }
 .ticker__item i{ font-style: normal; color: var(--accent); font-size: .6em; }
 @keyframes tick{ to{ transform: translateX(-50%); } }
@@ -472,8 +473,8 @@ mark{ background: var(--accent); color: var(--ink); padding: 0 .28em; border-rad
 :root{ --ease: cubic-bezier(.2,.8,.2,1); }
 
 /* Scroll progress bar */
-.progress{ position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 200; pointer-events: none;
-  transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--accent), #fff); }
+.progress{ position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 200; pointer-events: none; will-change: transform;
+  transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), #fff); }
 
 /* ---- Scroll reveals (hidden only while JavaScript is running, so nothing is ever lost) ---- */
 .reveal{ opacity: 1; transform: none; transition: none; }
@@ -523,9 +524,9 @@ mark{ background: var(--accent); color: var(--ink); padding: 0 .28em; border-rad
 .hero__burst{ animation: spin 26s linear infinite; }
 .hero__stars{ display: inline-block; animation: float 4s ease-in-out infinite; }
 .btn--accent.btn--pulse{ animation: pulse-ring 2.4s ease-out infinite 2.4s; }
-.glow--a{ animation: drift-a 20s ease-in-out infinite alternate; translate: 0 calc(var(--sy, 0) * .14px); }
-.glow--b{ animation: drift-b 24s ease-in-out infinite alternate; translate: 0 calc(var(--sy, 0) * -.1px); }
-.hero__photo img{ translate: 0 calc(var(--sy, 0) * -.04px); }
+.glow--a{ animation: drift-a 20s ease-in-out infinite alternate; }
+.glow--b{ animation: drift-b 24s ease-in-out infinite alternate; }
+.hero__photo img{ will-change: translate; }
 .contact__photo img{ transition: translate .6s var(--ease); }
 
 /* ---- Navigation behaviour ---- */
@@ -673,4 +674,94 @@ mark{ background: var(--accent); color: var(--ink); padding: 0 .28em; border-rad
   .js mark{ color: var(--ink) !important; }
   .ticker__track, .hero__burst, .hero__disc, .hero__stars, .glow{ animation: none !important; }
   .pcard{ transform: none !important; }
+}
+
+
+/* ==========================================================================
+   MOBILE POLISH — smoother scrolling and tidier text on phones
+   ========================================================================== */
+/* Nicer line breaks everywhere: balanced headings, no single stranded word at the end of a paragraph */
+h1, h2, h3, h4, .stat__label, .svc__title, .pcard__title{ text-wrap: balance; }
+p, .hero__intro, .intro__text, .contact__lead, .services__intro{ text-wrap: pretty; }
+
+@media (max-width: 860px), (hover: none){
+  /* Real background blur is the heaviest effect on phone graphics chips, so phones get a light "frosted" look without it */
+  .glass, .nav__pill, .nav__menu, .social--round, .testimonial, .pcard__glass, .cs__scrim, .lb__scrim{
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  }
+  .glass{ background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.06)); }
+  .nav__pill, .nav__menu{ background: rgba(20,0,18,.96); }
+  .social--round{ background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.07)); }
+  .testimonial{ background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.05)); }
+  .pcard__glass{ background: linear-gradient(135deg, rgba(255,255,255,.26), rgba(255,255,255,.1)), rgba(24,4,22,.45); }
+  .cs__scrim{ background: rgba(12,0,11,.92); }
+  .lb__scrim{ background: rgba(8,0,8,.97); }
+
+  /* No tilt and no always-running loops on phones */
+  .pcard, .pcard:hover{ transform: none; will-change: auto; }
+  .pcard::before{ display: none; }
+  .glow{ animation: none !important; }
+  .hero__disc{ animation: disc-in 1.3s var(--ease) .35s both !important; }
+  .hero__stars{ animation: none; }
+  .btn--accent.btn--pulse{ animation: none; }
+  .hero__photo img{ will-change: auto; }
+}
+
+@media (max-width: 860px){
+  /* The numbers bar always stays on ONE row, however many numbers you add */
+  .stats{ padding-top: 22px; }
+  .stats__bar{ display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 0; padding: 16px 4px; border-radius: 24px; }
+  .stat{ padding: 2px 6px; border-left: 1px solid rgba(255,255,255,.12); min-width: 0; }
+  .stat:first-child{ border-left: 0; }
+  .stat__num{ font-size: clamp(1.1rem, 5.6vw, 1.7rem); }
+  .lbl-full{ display: none; }
+  .lbl-short{ display: inline; }
+  .stat__label{ display: block; font-size: clamp(.6rem, 2.9vw, .74rem); line-height: 1.25; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Hero text stays tidy on a narrow screen */
+  .hero__label{ font-size: clamp(.58rem, 2.7vw, .72rem); white-space: nowrap; letter-spacing: 0; padding: 6px 12px; }
+  .hero__badge-label{ font-size: .82rem; }
+  .hero__intro{ max-width: 32ch; }
+
+  /* Service rows: a bit smaller so titles are not squeezed into two lines inside the pill */
+  .svc__btn{ padding: 15px 18px; gap: 12px; font-size: .92rem; }
+  .svc__desc{ padding: 0 18px 18px 52px; font-size: .9rem; }
+  .pcard__title{ font-size: .98rem; }
+  .ticker__item{ font-size: clamp(2rem, 11vw, 3.4rem); }
+  .contact__email{ font-size: clamp(.78rem, 3.7vw, .95rem); gap: 12px; padding-left: 20px; }
+  .contact__email > span:first-child{ overflow-wrap: normal; white-space: nowrap; }
+}
+@media (max-width: 380px){
+  .stat__label{ font-size: .6rem; }
+  .hero__cta{ gap: 10px; }
+  .hero__cta .btn{ padding: 12px 15px; font-size: .74rem; }
+}
+
+/* No sideways wobble on phones: elements waiting to slide in come from below, never from the side */
+main, .footer{ overflow-x: clip; }
+@media (max-width: 860px){
+  .js .reveal[data-reveal="left"], .js .reveal[data-reveal="right"]{ translate: 0 28px; }
+}
+@media (max-width: 430px){
+  .svc__btn{ font-size: .84rem; padding: 14px 15px; gap: 9px; }
+  .svc__desc{ padding: 0 15px 16px 46px; }
+  .svc__num{ font-size: .8rem; }
+}
+
+.svc.is-open .svc__arrow{ transform: none; rotate: 90deg; }
+
+.lbl-short{ display: none; }
+@media (max-width: 860px){ .lbl-short{ display: inline; } }
+
+/* Both hero buttons stay side by side on every phone width */
+@media (max-width: 430px){
+  .hero__cta .btn{ padding: 13px 19px; }
+}
+@media (max-width: 430px){
+  .hero__panel{ padding-left: 12px; padding-right: 12px; }
+  .hero__cta{ gap: 8px; }
+  .hero__cta .btn{ padding: 13px 17px; }
+}
+@media (max-width: 380px){
+  .hero__cta .btn{ padding: 12px 14px; font-size: .74rem; }
 }

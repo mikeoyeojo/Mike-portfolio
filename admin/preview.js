@@ -60,7 +60,7 @@
         <div class="hero__cta"><a class="btn btn--accent">${esc(s.hero_cta_primary)}</a><a class="btn btn--dark">${esc(s.hero_cta_secondary)}</a></div>
       </div></section>
     </div>
-    ${stats.length ? `<section class="stats"><div class="stats__bar glass">${stats.map(x => `<div class="stat"><span class="stat__num">${esc(x.number)}</span><span class="stat__label">${esc(x.label)}</span></div>`).join('')}</div></section>` : ''}
+    ${stats.length ? `<section class="stats"><div class="stats__bar glass">${stats.map(x => `<div class="stat"><span class="stat__num">${esc(x.number)}</span><span class="stat__label"><span class="lbl-full">${esc(x.label)}</span><span class="lbl-short">${esc(x.short_label || x.label)}</span></span></div>`).join('')}</div></section>` : ''}
     <section class="intro">
       <div class="intro__head"><h2 class="intro__title">${esc(s.intro_heading)}</h2><p class="intro__text">${esc(s.intro_text)}</p></div>
       <div class="intro__images">

@@ -138,7 +138,8 @@ collections:
             widget: "list"
             fields:
               - { label: "Number", name: "number", widget: "string" }
-              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Label (shown on computers)", name: "label", widget: "string" }
+              - { label: "Short label for phones (one or two words so it fits on one line)", name: "short_label", widget: "string", required: false }
           - { label: "[Intro] Heading", name: "intro_heading", widget: "string" }
           - { label: "[Intro] Text", name: "intro_text", widget: "text" }
           - { label: "[Intro] Wide image", name: "intro_image_wide", widget: "image", required: false }
