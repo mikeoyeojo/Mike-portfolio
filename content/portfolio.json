@@ -1,13 +1,25 @@
 {
   "items": [
     {
+      "blocks": [
+        {
+          "type": "gallery",
+          "columns": "3",
+          "images": [
+            "/assets/uploads/atoobi-case-study.jpg",
+            "/assets/uploads/atoobi-is-live-copy.png",
+            "/assets/uploads/artboard-3.png",
+            "/assets/uploads/artboard-4.png"
+          ]
+        }
+      ],
       "client": "Atoobi",
-      "card_size": "normal",
+      "card_size": "large",
       "role": "Freelance Design",
       "title": "Atoobi",
       "overview": "Nigeria's first cashback dining membership. Earn up to 20% back in real naira, credited instantly to your Atoobi balance, every time you dine with Atoobi.",
       "link": "https://www.instagram.com/atoobi_dine",
-      "image": "/assets/uploads/atoobi-is-live-copy.png",
+      "image": "/assets/uploads/atoobi-case-study-2.jpg.png",
       "tools": "Adobe Photoshop | Adobe illustrator | Adobe After effect.",
       "description": "Nigeria's first cashback dining membership. Created engaging social media carousels, sleek app screen visuals, and dynamic motion graphics to drive user adoption and brand engagement.",
       "year": "2026",
