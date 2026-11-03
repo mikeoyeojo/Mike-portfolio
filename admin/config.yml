@@ -27,7 +27,7 @@ collections:
               - label: "Category"
                 name: "category"
                 widget: "select"
-                options: ["Solar", "Real Estate", "Branding", "Social Media", "Motion", "E-commerce"]
+                options: ["Solar", "Real Estate", "Branding", "Social Media", "Motion", "E-commerce", "Web Design", "Print Design"]
               - label: "Card size in the grid"
                 name: "card_size"
                 widget: "select"
