@@ -1,17 +1,13 @@
 {
   "items": [
     {
-      "title": "The Renergy Hub — Brand Identity System",
-      "category": "Branding",
-      "card_size": "large",
-      "image": "/assets/uploads/renergy-hub.jpg",
-      "description": "Full brand rollout for a solar energy company: logo mark, safety wear, banners, and outdoor billboard creative.",
-      "link": "",
-      "client": "The Renergy Hub",
-      "year": "",
-      "role": "Brand & visual design",
-      "tools": "Photoshop, Illustrator",
-      "overview": "A solar company needs to look trustworthy on a rooftop, on a billboard, and on a phone screen. This identity carries one lightning-R mark and a green and black palette across field gear, flags, and outdoor ads.\n\nThe line \"We make energy simple, smart, and sustainable\" sets the tone for every layout.",
+      "card_size": "tall",
+      "title": "Atoobi",
+      "category": "Social Media",
+      "image": "/assets/uploads/atoobi-is-live-copy.png",
+      "description": "mkyugdv;o;VU;hjf  ;u;jhv;;IYUvjv"
+    },
+    {
       "blocks": [
         {
           "type": "image",
@@ -32,20 +28,20 @@
             "/assets/uploads/renergy-poster.jpg"
           ]
         }
-      ]
+      ],
+      "client": "The Renergy Hub",
+      "card_size": "large",
+      "role": "Brand & visual design",
+      "title": "The Renergy Hub — Brand Identity System",
+      "overview": "A solar company needs to look trustworthy on a rooftop, on a billboard, and on a phone screen. This identity carries one lightning-R mark and a green and black palette across field gear, flags, and outdoor ads.\n\nThe line \"We make energy simple, smart, and sustainable\" sets the tone for every layout.",
+      "link": "",
+      "image": "/assets/uploads/renergy-hub.jpg",
+      "tools": "Photoshop, Illustrator",
+      "description": "Full brand rollout for a solar energy company: logo mark, safety wear, banners, and outdoor billboard creative.",
+      "year": "",
+      "category": "Branding"
     },
     {
-      "title": "ABJO Properties & Surveying — Brand Assets",
-      "category": "Real Estate",
-      "card_size": "tall",
-      "image": "/assets/uploads/abjo-brand.jpg",
-      "description": "Field and corporate branding for a land surveying and property services company.",
-      "link": "",
-      "client": "ABJO Properties & Surveying",
-      "year": "",
-      "role": "Brand & visual design",
-      "tools": "Illustrator, Photoshop",
-      "overview": "Surveyors work outdoors, so the brand has to be seen from a distance. High-visibility colours and a bold ABJO wordmark carry the identity from vests to hard hats to print.",
       "blocks": [
         {
           "type": "image",
@@ -57,20 +53,20 @@
           "image": "/assets/uploads/abjo-hat-bag.jpg",
           "caption": "Hard hat and carry bag with the ABJO mark"
         }
-      ]
+      ],
+      "client": "ABJO Properties & Surveying",
+      "card_size": "tall",
+      "role": "Brand & visual design",
+      "title": "ABJO Properties & Surveying — Brand Assets",
+      "overview": "Surveyors work outdoors, so the brand has to be seen from a distance. High-visibility colours and a bold ABJO wordmark carry the identity from vests to hard hats to print.",
+      "link": "",
+      "image": "/assets/uploads/abjo-brand.jpg",
+      "tools": "Illustrator, Photoshop",
+      "description": "Field and corporate branding for a land surveying and property services company.",
+      "year": "",
+      "category": "Real Estate"
     },
     {
-      "title": "Nexgen Energy — Social Media Content",
-      "category": "Social Media",
-      "card_size": "normal",
-      "image": "/assets/uploads/nexgen-carousels.jpg",
-      "description": "Recurring flyers and carousels that turn solar ideas into simple visual stories.",
-      "link": "",
-      "client": "Nexgen Energy",
-      "year": "",
-      "role": "Lead graphics designer and social media",
-      "tools": "Photoshop, Illustrator, After Effects",
-      "overview": "Social content for a solar company has to educate and sell at the same time. These flyers and carousels turn topics like blackouts, fuel costs, and battery storage into quick, scannable posts.",
       "blocks": [
         {
           "type": "image",
@@ -82,20 +78,20 @@
           "image": "/assets/uploads/nexgen-carousel-rows.jpg",
           "caption": "Carousel series"
         }
-      ]
+      ],
+      "client": "Nexgen Energy",
+      "card_size": "normal",
+      "role": "Lead graphics designer and social media",
+      "title": "Nexgen Energy — Social Media Content",
+      "overview": "Social content for a solar company has to educate and sell at the same time. These flyers and carousels turn topics like blackouts, fuel costs, and battery storage into quick, scannable posts.",
+      "link": "",
+      "image": "/assets/uploads/nexgen-carousels.jpg",
+      "tools": "Photoshop, Illustrator, After Effects",
+      "description": "Recurring flyers and carousels that turn solar ideas into simple visual stories.",
+      "year": "",
+      "category": "Social Media"
     },
     {
-      "title": "CusorCart — Ads, Carousels & Email Headers",
-      "category": "E-commerce",
-      "card_size": "normal",
-      "image": "/assets/uploads/cusorcart-hero-ad.jpg",
-      "description": "Campaign ads, carousels, and email headers for an online shopping platform.",
-      "link": "",
-      "client": "CusorCart",
-      "year": "2025",
-      "role": "Senior graphics designer",
-      "tools": "Photoshop, Illustrator",
-      "overview": "Bright, friendly ads built around real shoppers and the products they want, with a clear call to action on every layout.",
       "blocks": [
         {
           "type": "image",
@@ -132,26 +128,37 @@
           "image": "/assets/uploads/cusorcart-carousel-rows.jpg",
           "caption": "Educational carousels"
         }
-      ]
+      ],
+      "client": "CusorCart",
+      "card_size": "normal",
+      "role": "Senior graphics designer",
+      "title": "CusorCart — Ads, Carousels & Email Headers",
+      "overview": "Bright, friendly ads built around real shoppers and the products they want, with a clear call to action on every layout.",
+      "link": "",
+      "image": "/assets/uploads/cusorcart-hero-ad.jpg",
+      "tools": "Photoshop, Illustrator",
+      "description": "Campaign ads, carousels, and email headers for an online shopping platform.",
+      "year": "2025",
+      "category": "E-commerce"
     },
     {
-      "title": "Event & Promo Flyers",
-      "category": "Social Media",
-      "card_size": "normal",
-      "image": "/assets/uploads/campaign-flyers.jpg",
-      "description": "Promotional flyers for events, property investment, and fashion.",
-      "link": "",
-      "client": "",
-      "year": "2025",
-      "role": "Graphic design",
-      "tools": "Photoshop, Illustrator",
-      "overview": "One-off promotional flyers, each built to be read in a single glance on a phone.",
       "blocks": [
         {
           "type": "image",
           "image": "/assets/uploads/campaign-flyers.jpg"
         }
-      ]
+      ],
+      "client": "",
+      "card_size": "normal",
+      "role": "Graphic design",
+      "title": "Event & Promo Flyers",
+      "overview": "One-off promotional flyers, each built to be read in a single glance on a phone.",
+      "link": "",
+      "image": "/assets/uploads/campaign-flyers.jpg",
+      "tools": "Photoshop, Illustrator",
+      "description": "Promotional flyers for events, property investment, and fashion.",
+      "year": "2025",
+      "category": "Social Media"
     }
   ]
 }
