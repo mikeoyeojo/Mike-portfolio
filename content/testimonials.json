@@ -1,1 +1,9 @@
-{ "testimonials": [] }
+{
+  "testimonials": [
+    {
+      "quote": "Working with Michael completely transformed our daily workflow. Before we started, our team was losing hours every week to disorganized project tracking. Within just two weeks of implementing their system, we cut our planning time in half and actually hit our monthly deadline early for the first time all year. I cannot recommend them enough",
+      "name": "Mr Dare",
+      "role": "CEO Dretech Energy"
+    }
+  ]
+}
