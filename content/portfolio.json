@@ -32,6 +32,56 @@
       "blocks": [
         {
           "type": "image",
+          "image": "/assets/uploads/cusorcart-hero-ad.jpg",
+          "caption": "Campaign ad"
+        },
+        {
+          "type": "gallery",
+          "columns": "3",
+          "images": [
+            "/assets/uploads/cusorcart-ad-1.jpg",
+            "/assets/uploads/cusorcart-ad-2.jpg",
+            "/assets/uploads/cusorcart-ad-3.jpg"
+          ]
+        },
+        {
+          "type": "text",
+          "heading": "Email headers",
+          "body": "A set of header banners that keep the CusorCart look consistent in every inbox.",
+          "layout": "one-column"
+        },
+        {
+          "type": "grid",
+          "columns": "2",
+          "images": [
+            "/assets/uploads/cusorcart-email-1.jpg",
+            "/assets/uploads/cusorcart-email-2.jpg",
+            "/assets/uploads/cusorcart-email-3.jpg",
+            "/assets/uploads/cusorcart-email-4.jpg"
+          ]
+        },
+        {
+          "type": "image",
+          "image": "/assets/uploads/cusorcart-carousel-rows.jpg",
+          "caption": "Educational carousels"
+        }
+      ],
+      "client": "CusorCart",
+      "card_size": "normal",
+      "role": "Senior graphics designer",
+      "title": "CusorCart — Ads, Carousels & Email Headers",
+      "overview": "Bright, friendly ads built around real shoppers and the products they want, with a clear call to action on every layout.",
+      "link": "",
+      "image": "/assets/uploads/cusorcart.png",
+      "tools": "Photoshop, Illustrator",
+      "description": "Campaign ads, carousels, and email headers for an online shopping platform.",
+      "year": "2025",
+      "category": "E-commerce"
+    },
+    {
+      "blocks": [
+        {
+          "type": "image",
           "image": "/assets/uploads/renergy-hub.jpg",
           "caption": "Field wear and flags: the mark at small and large scale"
         },
@@ -111,56 +161,6 @@
       "description": "Recurring flyers and carousels that turn solar ideas into simple visual stories.",
       "year": "",
       "category": "Social Media"
-    },
-    {
-      "blocks": [
-        {
-          "type": "image",
-          "image": "/assets/uploads/cusorcart-hero-ad.jpg",
-          "caption": "Campaign ad"
-        },
-        {
-          "type": "gallery",
-          "columns": "3",
-          "images": [
-            "/assets/uploads/cusorcart-ad-1.jpg",
-            "/assets/uploads/cusorcart-ad-2.jpg",
-            "/assets/uploads/cusorcart-ad-3.jpg"
-          ]
-        },
-        {
-          "type": "text",
-          "heading": "Email headers",
-          "body": "A set of header banners that keep the CusorCart look consistent in every inbox.",
-          "layout": "one-column"
-        },
-        {
-          "type": "grid",
-          "columns": "2",
-          "images": [
-            "/assets/uploads/cusorcart-email-1.jpg",
-            "/assets/uploads/cusorcart-email-2.jpg",
-            "/assets/uploads/cusorcart-email-3.jpg",
-            "/assets/uploads/cusorcart-email-4.jpg"
-          ]
-        },
-        {
-          "type": "image",
-          "image": "/assets/uploads/cusorcart-carousel-rows.jpg",
-          "caption": "Educational carousels"
-        }
-      ],
-      "client": "CusorCart",
-      "card_size": "normal",
-      "role": "Senior graphics designer",
-      "title": "CusorCart — Ads, Carousels & Email Headers",
-      "overview": "Bright, friendly ads built around real shoppers and the products they want, with a clear call to action on every layout.",
-      "link": "",
-      "image": "/assets/uploads/cusorcart-hero-ad.jpg",
-      "tools": "Photoshop, Illustrator",
-      "description": "Campaign ads, carousels, and email headers for an online shopping platform.",
-      "year": "2025",
-      "category": "E-commerce"
     },
     {
       "blocks": [
